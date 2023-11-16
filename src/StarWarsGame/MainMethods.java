@@ -1,6 +1,8 @@
 package StarWarsGame;
-import static StarWarsGame.MainApiCall.generateNameFromApi;
+import static StarWarsGame.MainApiCall.generateInfoFromApi;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Objects;
 import java.util.Random;
 
 public class MainMethods {
@@ -13,18 +15,34 @@ public class MainMethods {
 
     }
 
-    public static ArrayList<String> generateListOfRandomName(String type, int numberToAvoid) throws Exception {
+    public static boolean checkIfUserChoiceCorrect(String correctAnswerName, int userChoiceNum, ArrayList listOfOptions) {
+        String userChoiceName = (String) listOfOptions.get(userChoiceNum);
+        return Objects.equals(userChoiceName, correctAnswerName);
+    }
 
-        ArrayList<String> listOfRandomNames = new ArrayList<String>();
+    public static ArrayList<String> generateListOfRandomName(String type, int numberToAvoid, String correctAnswerName) throws Exception {
 
-        for (int i = 0; i < 4; i++) {
+        ArrayList<String> listOfRandomNames = new ArrayList<>();
+
+        while (listOfRandomNames.size() < 4) {
+
+            ArrayList<Integer> listOfRandomNumbers = new ArrayList<>();
+
             int newRandomNum = generateRandomInt();
-            if (newRandomNum != numberToAvoid) {
-                String newName = generateNameFromApi(type, newRandomNum);
-                listOfRandomNames.add(newName);
+
+            if (listOfRandomNumbers.contains(newRandomNum)) {
+                continue;
+            } else {
+                listOfRandomNumbers.add(newRandomNum);
+                if (newRandomNum != numberToAvoid) {
+                    String newName = generateInfoFromApi(type, newRandomNum);
+                    listOfRandomNames.add(newName);
+                }
             }
+            listOfRandomNames.add(correctAnswerName);
+            Collections.shuffle(listOfRandomNames);
+            return listOfRandomNames;
         }
         return listOfRandomNames;
     }
-
 }

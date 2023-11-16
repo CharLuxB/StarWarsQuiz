@@ -7,7 +7,7 @@ import java.net.http.HttpResponse;
 
 public class MainApiCall {
 
-    public static String generateNameFromApi(String type, int number) throws Exception {
+    public static String generateInfoFromApi(String type, int number) throws Exception {
 
         HttpClient client = HttpClient.newHttpClient();
 
