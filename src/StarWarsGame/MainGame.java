@@ -11,17 +11,22 @@ public class MainGame {
 
     public static void main(String[] args) throws Exception {
 
+
+
         int answerNumber = generateRandomInt();
 
-        String question = generateInfoFromApi("people", answerNumber);
+        String questionTopic = "people";
+        String answerTopic = "planets";
 
-        String answerName = generateInfoFromApi("planets", answerNumber);
+        String question = generateInfoFromApi(questionTopic, answerNumber);
 
-        ArrayList<String> optionsList = generateListOfRandomName("planets", answerNumber, answerName);
+        String answerName = generateInfoFromApi(answerTopic, answerNumber);
+
+        ArrayList<String> optionsList = generateListOfRandomName(answerTopic, answerNumber, answerName);
 
 
-        System.out.println("Which of the following planets is the home world of the Star Wars character " + question + "?");
-        System.out.println("Is it:\n");
+        System.out.println("\nWhich of the following planets is the home world of the Star Wars character " + question + "?");
+        System.out.println("\nIs it:");
 
         int i = 0;
         while(i < optionsList.size()) {

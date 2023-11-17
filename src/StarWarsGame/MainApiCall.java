@@ -7,12 +7,12 @@ import java.net.http.HttpResponse;
 
 public class MainApiCall {
 
-    public static String generateInfoFromApi(String type, int number) throws Exception {
+    public static String generateInfoFromApi(String topic, int number) throws Exception {
 
         HttpClient client = HttpClient.newHttpClient();
 
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://swapi.dev/api/" + type + "/" + number + "/"))
+                .uri(URI.create("https://swapi.dev/api/" + topic + "/" + number + "/"))
                 .build();
 
         HttpResponse<String> response = client.send(request,

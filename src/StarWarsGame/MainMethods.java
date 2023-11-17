@@ -15,34 +15,38 @@ public class MainMethods {
 
     }
 
-    public static boolean checkIfUserChoiceCorrect(String correctAnswerName, int userChoiceNum, ArrayList listOfOptions) {
-        String userChoiceName = (String) listOfOptions.get(userChoiceNum);
-        return Objects.equals(userChoiceName, correctAnswerName);
+    public static boolean checkIfUserChoiceCorrect(String correctAnswerName, int userChoiceNum, ArrayList<String> listOfOptions) {
+
+        if(userChoiceNum < 1 || userChoiceNum > 4) {
+            return false;
+        }
+
+        String userChoiceName = listOfOptions.get(userChoiceNum-1);
+
+        return userChoiceName.equals(correctAnswerName);
+
     }
 
-    public static ArrayList<String> generateListOfRandomName(String type, int numberToAvoid, String correctAnswerName) throws Exception {
+    public static ArrayList<String> generateListOfRandomName(String topic, int numberToAvoid, String correctAnswerName) throws Exception {
 
         ArrayList<String> listOfRandomNames = new ArrayList<>();
 
-        while (listOfRandomNames.size() < 4) {
+        listOfRandomNames.add(correctAnswerName);
 
-            ArrayList<Integer> listOfRandomNumbers = new ArrayList<>();
+        while (listOfRandomNames.size() < 4) {
 
             int newRandomNum = generateRandomInt();
 
-            if (listOfRandomNumbers.contains(newRandomNum)) {
+            String newRandomName = generateInfoFromApi(topic, newRandomNum);
+
+            if (listOfRandomNames.contains(newRandomName)) {
                 continue;
             } else {
-                listOfRandomNumbers.add(newRandomNum);
-                if (newRandomNum != numberToAvoid) {
-                    String newName = generateInfoFromApi(type, newRandomNum);
-                    listOfRandomNames.add(newName);
+                listOfRandomNames.add(newRandomName);
                 }
             }
-            listOfRandomNames.add(correctAnswerName);
             Collections.shuffle(listOfRandomNames);
             return listOfRandomNames;
         }
-        return listOfRandomNames;
-    }
+
 }
