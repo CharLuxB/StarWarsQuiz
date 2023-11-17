@@ -4,55 +4,56 @@ package StarWarsGame;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static StarWarsGame.MainApiCall.generateInfoFromApi;
+
+import static StarWarsGame.MainApiCall.generateNameAndPlanetUrlFromSwapiUrl;
+import static StarWarsGame.MainApiCall.generatePlanetNameFromSwapiUrl;
 import static StarWarsGame.MainMethods.*;
 
 public class MainGame {
 
     public static void main(String[] args) throws Exception {
 
+        int score = 0;
 
+        for (int round = 1; round < 11 ; round++) {
 
-        int answerNumber = generateRandomInt();
+            int randomPeopleNumber = generateRandomInt();
 
-        String questionTopic = "people";
-        String answerTopic = "planets";
+            ArrayList listOfNameAndPlanetUrl = generateNameAndPlanetUrlFromSwapiUrl("https://swapi.dev/api/people/" + randomPeopleNumber +"/");
 
-        String question = generateInfoFromApi(questionTopic, answerNumber);
+            String randomPeopleName = (String) listOfNameAndPlanetUrl.get(0);
 
-        String answerName = generateInfoFromApi(answerTopic, answerNumber);
+            String randomPeoplePlanetUrl = (String) listOfNameAndPlanetUrl.get(1);
 
-        ArrayList<String> optionsList = generateListOfRandomNames(answerTopic, answerName);
+            String correctPlanetAnswer = generatePlanetNameFromSwapiUrl(randomPeoplePlanetUrl);
 
+            ArrayList optionPlanetsList = generateListOfRandomPlanetNames(correctPlanetAnswer);
 
-        System.out.println("\nWhich of the following planets is the home world of the Star Wars character " + question + "?");
-        System.out.println("\nIs it:");
+            System.out.println("\nRound " + round + " | Score = " + score +
+                    "\nWhich of the following planets is the home world of " + randomPeopleName + "?\nIs it:");
 
-        int i = 0;
-        while(i < optionsList.size()) {
-            System.out.println((i+1) + ": " + optionsList.get(i));
-            i++;
+            int i = 0;
+            while (i < optionPlanetsList.size()) {
+                System.out.println((i + 1) + ": " + optionPlanetsList.get(i));
+                i++;
+            }
+            System.out.println("\nType in the number of your choice here:");
+
+            Scanner userInput = new Scanner(System.in);
+            String userChoiceString = userInput.nextLine();
+            int userChoiceInt = Integer.parseInt(userChoiceString);
+
+            boolean addPoint = checkIfUserChoiceCorrect(correctPlanetAnswer, userChoiceInt, optionPlanetsList);
+
+            if (addPoint) {
+                System.out.println("Correct, it is " + correctPlanetAnswer);
+                score += 1;
+            } else {
+                System.out.println("Incorrect, the answer is " + correctPlanetAnswer);
+            }
+
         }
-        System.out.println("\nType in the number of your choice here:");
-
-        Scanner userInput = new Scanner(System.in);
-        String userChoiceString = userInput.nextLine();
-        int userChoiceInt = Integer.parseInt(userChoiceString);
-
-        boolean addPoint = checkIfUserChoiceCorrect(answerName, userChoiceInt, optionsList);
-
-        if (addPoint) {
-            System.out.println("Correct, it is " + answerName);
-        } else {
-            System.out.println("Incorrect, the answer is " + answerName);
-        }
-
-
-
-
-
-
-
     }
-
 }
+
+
