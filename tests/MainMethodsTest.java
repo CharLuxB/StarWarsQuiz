@@ -16,13 +16,13 @@ public class MainMethodsTest {
 
     @Test
     public void testGenerateListOfRandomNamesSize() throws Exception {
-        ArrayList<String> result = (generateListOfRandomNames("planets", "Tatooine"));
+        ArrayList<String> result = generateListOfRandomPlanetNames("Tatooine");
         assertEquals(4, result.size());
     }
 
     @Test
     public void testGenerateListOfRandomNamesContains() throws Exception {
-        ArrayList<String> result = (generateListOfRandomNames("planets", "Tatooine"));
+        ArrayList<String> result = generateListOfRandomPlanetNames("Tatooine");
         assertTrue(result.contains("Tatooine"));
     }
 
