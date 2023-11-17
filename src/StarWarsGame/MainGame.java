@@ -22,7 +22,7 @@ public class MainGame {
 
         String answerName = generateInfoFromApi(answerTopic, answerNumber);
 
-        ArrayList<String> optionsList = generateListOfRandomName(answerTopic, answerNumber, answerName);
+        ArrayList<String> optionsList = generateListOfRandomNames(answerTopic, answerName);
 
 
         System.out.println("\nWhich of the following planets is the home world of the Star Wars character " + question + "?");
