@@ -2,7 +2,6 @@ package StarWarsGame;
 import static StarWarsGame.MainApiCall.generateInfoFromApi;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Objects;
 import java.util.Random;
 
 public class MainMethods {
@@ -11,7 +10,7 @@ public class MainMethods {
 
         Random randInt = new Random();
 
-        return (randInt.nextInt(59)+1);
+        return (randInt.nextInt(1, 60));
 
     }
 
@@ -27,7 +26,7 @@ public class MainMethods {
 
     }
 
-    public static ArrayList<String> generateListOfRandomName(String topic, int numberToAvoid, String correctAnswerName) throws Exception {
+    public static ArrayList<String> generateListOfRandomNames(String topic, String correctAnswerName) throws Exception {
 
         ArrayList<String> listOfRandomNames = new ArrayList<>();
 
